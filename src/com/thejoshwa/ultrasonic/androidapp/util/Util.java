@@ -117,7 +117,6 @@ public class Util extends DownloadActivity {
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
     private static Toast toast;
     
-    public static Bitmap bluetoothBitmap;
     private static Entry currentSong;
 
     private Util() {
@@ -885,17 +884,13 @@ public class Util extends DownloadActivity {
 			avrcpIntent.putExtra("artist_name", "");
 			avrcpIntent.putExtra("album", "");
 			avrcpIntent.putExtra("album_name", "");
-			avrcpIntent.putExtra("cover", (Parcelable) null);
-			avrcpIntent.putExtra("coverart", (Parcelable) null);
 			avrcpIntent.putExtra("ListSize", (long) 0);
 			avrcpIntent.putExtra("id", (long) 0);
 			avrcpIntent.putExtra("duration", (long) 0);
 			avrcpIntent.putExtra("position", (long) 0);
-			bluetoothBitmap = null;
 		} else {
 			if (song != currentSong) {
-				currentSong = song;
-				bluetoothBitmap = FileUtil.getAlbumArtBitmap(context, song, bluetoothImagesize, true);		
+				currentSong = song;		
 			}
 
 			String title = song.getTitle();
@@ -912,8 +907,6 @@ public class Util extends DownloadActivity {
 			avrcpIntent.putExtra("artist_name", artist);
 			avrcpIntent.putExtra("album", album);
 			avrcpIntent.putExtra("album_name", album);
-			avrcpIntent.putExtra("cover", (Parcelable) bluetoothBitmap);
-			avrcpIntent.putExtra("coverart", (Parcelable) bluetoothBitmap);
 			
 			if (playerPosition != null) {
 				avrcpIntent.putExtra("position", (long) playerPosition);
@@ -948,7 +941,6 @@ public class Util extends DownloadActivity {
 			
 			if (song != currentSong) {
 				currentSong = song;
-				bluetoothBitmap = FileUtil.getAlbumArtBitmap(context, song, bluetoothImagesize, true);
 			}
 			
 			String title = song.getTitle();
@@ -965,8 +957,6 @@ public class Util extends DownloadActivity {
 			avrcpIntent.putExtra("artist_name", artist);
 			avrcpIntent.putExtra("album", album);
 			avrcpIntent.putExtra("album_name", album);
-			avrcpIntent.putExtra("cover", (Parcelable) bluetoothBitmap);
-			avrcpIntent.putExtra("coverart", (Parcelable) bluetoothBitmap);
 			
 			if (playerPosition != null) {
 				avrcpIntent.putExtra("position", (long) playerPosition);
