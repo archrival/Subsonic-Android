@@ -17,7 +17,7 @@
 
     <uses-sdk
         a:minSdkVersion="14"
-        a:targetSdkVersion="19"/>
+        a:targetSdkVersion="21"/>
 
     <supports-screens
         a:anyDensity="true"

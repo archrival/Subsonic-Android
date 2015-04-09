@@ -73,6 +73,7 @@
             android:drawableLeft="?attr/chat"
             android:text="@string/button_bar.chat"/>
 
+
         <TextView
             android:id="@+id/menu_now_playing"
             style="@style/MenuDrawer.Widget.Title"
@@ -80,6 +81,15 @@
             android:layout_height="wrap_content"
             android:drawableLeft="?attr/media_play"
             android:text="@string/button_bar.now_playing"/>
+
+        <Switch
+            style="@style/MenuDrawer.Widget.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu.jukebox"
+            android:id="@+id/menu_jukebox"
+            android:checked="false" />
+
 
         <TextView
             android:id="@+id/menu_common"

@@ -484,6 +484,14 @@ public class SettingsActivity extends PreferenceResultActivity implements Shared
 		{
 			setTheme(R.style.UltraSonicTheme_Light);
 		}
+		else if ("materiallight".equalsIgnoreCase(theme) || "fullscreenmateriallight".equalsIgnoreCase(theme))
+		{
+			setTheme(R.style.UltraSonicThemeMaterial_Light);
+		}
+		else if ("material".equalsIgnoreCase(theme) || "fullscreenmaterial".equalsIgnoreCase(theme))
+		{
+			setTheme(R.style.UltraSonicThemeMaterial);
+		}		
 	}
 
 	@Override

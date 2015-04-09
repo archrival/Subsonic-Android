@@ -50,6 +50,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.thejoshwa.ultrasonic.androidapp.R;
@@ -90,7 +91,7 @@ import java.util.regex.Pattern;
 /**
  * @author Sindre Mehus
  */
-public class SubsonicTabActivity extends ResultActivity implements OnClickListener
+public class SubsonicTabActivity extends ResultActivity implements OnClickListener, CompoundButton.OnCheckedChangeListener, MenuDrawer.OnDrawerStateChangeListener
 {
 	private static final String TAG = SubsonicTabActivity.class.getSimpleName();
 	private static final Pattern COMPILE = Pattern.compile(":");
@@ -112,6 +113,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 	View chatMenuItem;
 	View bookmarksMenuItem;
 	View sharesMenuItem;
+	Switch jukeboxMenuItem;
 	public static boolean nowPlayingHidden;
 	public static Entry currentSong;
 	public Bitmap nowPlayingImage;
@@ -142,10 +144,12 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 
 		menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.LEFT, MenuDrawer.MENU_DRAG_WINDOW);
 		menuDrawer.setMenuView(R.layout.menu_main);
+		menuDrawer.setOnDrawerStateChangeListener(this);
 
 		chatMenuItem = findViewById(R.id.menu_chat);
 		bookmarksMenuItem = findViewById(R.id.menu_bookmarks);
 		sharesMenuItem = findViewById(R.id.menu_shares);
+		jukeboxMenuItem = (Switch) findViewById(R.id.menu_jukebox);
 
 		findViewById(R.id.menu_home).setOnClickListener(this);
 		findViewById(R.id.menu_browse).setOnClickListener(this);
@@ -154,6 +158,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		sharesMenuItem.setOnClickListener(this);
 		chatMenuItem.setOnClickListener(this);
 		bookmarksMenuItem.setOnClickListener(this);
+		jukeboxMenuItem.setOnCheckedChangeListener(this);
 		findViewById(R.id.menu_now_playing).setOnClickListener(this);
 		findViewById(R.id.menu_settings).setOnClickListener(this);
 		findViewById(R.id.menu_about).setOnClickListener(this);
@@ -206,6 +211,9 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		{
 			hideNowPlaying();
 		}
+
+		int showJukebox = Util.isShowJukeboxEnabled(this) ? View.VISIBLE : View.GONE;
+		jukeboxMenuItem.setVisibility(showJukebox);
 	}
 
 	@Override
@@ -237,7 +245,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		boolean isVolumeDown = keyCode == KeyEvent.KEYCODE_VOLUME_DOWN;
 		boolean isVolumeUp = keyCode == KeyEvent.KEYCODE_VOLUME_UP;
 		boolean isVolumeAdjust = isVolumeDown || isVolumeUp;
-		boolean isJukebox = getDownloadService() != null && getDownloadService().isJukeboxEnabled();
+		boolean isJukebox = isJukeboxEnabled();
 
 		if (isVolumeAdjust && isJukebox)
 		{
@@ -338,6 +346,16 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		{
 			setTheme(R.style.UltraSonicTheme_Light);
 		}
+		else if ("materiallight".equalsIgnoreCase(theme) || "fullscreenmateriallight".equalsIgnoreCase(theme))
+		{
+			setTheme(R.style.UltraSonicThemeMaterial_Light);
+		}
+		else if ("material".equalsIgnoreCase(theme) || "fullscreenmaterial".equalsIgnoreCase(theme))
+		{
+			setTheme(R.style.UltraSonicThemeMaterial);
+		}
+		
+		
 	}
 
 	public void showNotification(final Handler handler, final Entry song, final DownloadServiceImpl downloadService, final Notification notification, final PlayerState playerState)
@@ -928,7 +946,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 
 			if (downloadService != null)
 			{
-				return downloadService;
+				break;
 			}
 
 			Log.w(TAG, "DownloadService not running. Attempting to start it.");
@@ -1358,6 +1376,17 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		}
 	}
 
+	@Override
+	public void onDrawerStateChange(int oldState, int newState) {
+
+		jukeboxMenuItem.setChecked(isJukeboxEnabled());
+	}
+
+	@Override
+	public void onDrawerSlide(float openRatio, int offsetPixels) {
+
+	}
+
 	/**
 	 * Logs the stack trace of uncaught exceptions to a file on the SD card.
 	 */
@@ -1468,6 +1497,18 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 	}
 
 	@Override
+	public void onCheckedChanged(android.widget.CompoundButton compoundButton, boolean b) {
+		int buttonId = compoundButton.getId();
+		switch(buttonId) {
+			case R.id.menu_jukebox:
+				getDownloadService().setJukeboxEnabled(b);
+				break;
+		}
+	}
+
+
+
+	@Override
 	protected void onRestoreInstanceState(Bundle inState)
 	{
 		super.onRestoreInstanceState(inState);
@@ -1564,5 +1605,9 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 
 			return false;
 		}
+	}
+
+	private boolean isJukeboxEnabled() {
+		return getDownloadService() != null && getDownloadService().isJukeboxEnabled();
 	}
 }

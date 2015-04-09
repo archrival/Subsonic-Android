@@ -8,10 +8,13 @@
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/drag-sort-listview/library/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/drag-sort-listview/library/res" />
         <option name="LIBRARY_PROJECT" value="true" />
+        <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file:///production/drag-sort-listview" />
+    <output-test url="file:///test/drag-sort-listview" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/drag-sort-listview/library">
       <sourceFolder url="file://$MODULE_DIR$/drag-sort-listview/library/gen" isTestSource="false" generated="true" />
@@ -22,7 +25,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/sdk/extras/android/support/v4/android-support-v4.jar!/" />
+          <root url="jar://$USER_HOME$/tools/adt-bundle-linux/sdk/extras/android/support/v4/android-support-v4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

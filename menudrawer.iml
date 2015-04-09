@@ -14,13 +14,15 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file:///production/menudrawer" />
+    <output-test url="file:///test/menudrawer" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/menudrawer/menudrawer">
       <sourceFolder url="file://$MODULE_DIR$/menudrawer/menudrawer/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/menudrawer/menudrawer/library/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

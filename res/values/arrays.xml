@@ -4,10 +4,14 @@
     <string-array name="themeValues">
         <item>light</item>
         <item>dark</item>
+        <item>material</item>
+        <item>materiallight</item>
     </string-array>
     <string-array name="themeNames">
         <item>@string/settings.theme_light</item>
         <item>@string/settings.theme_dark</item>
+        <item>@string/settings.theme_material</item>
+        <item>@string/settings.theme_material_light</item>
     </string-array>
     <string-array name="preloadCountValues">
         <item>1</item>

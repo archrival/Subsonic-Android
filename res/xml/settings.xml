@@ -108,6 +108,11 @@
             a:summary="@string/settings.show_now_playing_summary"
             a:title="@string/settings.show_now_playing"/>
         <CheckBoxPreference
+            a:defaultValue="false"
+            a:key="showJukebox"
+            a:summary="@string/settings.show_jukebox_summary"
+            a:title="@string/settings.show_jukebox"/>
+        <CheckBoxPreference
             a:defaultValue="true"
             a:key="showNotification"
             a:summary="@string/settings.show_notification_summary"

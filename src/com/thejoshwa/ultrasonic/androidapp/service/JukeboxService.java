@@ -18,6 +18,17 @@
  */
 package com.thejoshwa.ultrasonic.androidapp.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
+
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -32,17 +43,6 @@ import com.thejoshwa.ultrasonic.androidapp.domain.JukeboxStatus;
 import com.thejoshwa.ultrasonic.androidapp.domain.PlayerState;
 import com.thejoshwa.ultrasonic.androidapp.service.parser.SubsonicRESTException;
 import com.thejoshwa.ultrasonic.androidapp.util.Util;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Provides an asynchronous interface to the remote jukebox on the Subsonic server.
@@ -321,7 +321,7 @@ public class JukeboxService
 
 		downloadService.setPlayerState(PlayerState.IDLE);
 	}
-
+	
 	private static class TaskQueue
 	{
 		private final LinkedBlockingQueue<JukeboxTask> queue = new LinkedBlockingQueue<JukeboxTask>();
@@ -475,4 +475,5 @@ public class JukeboxService
 			show();
 		}
 	}
+	
 }

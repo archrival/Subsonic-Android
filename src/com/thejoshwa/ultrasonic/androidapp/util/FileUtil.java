@@ -18,16 +18,6 @@
  */
 package com.thejoshwa.ultrasonic.androidapp.util;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.util.Log;
-
-import com.thejoshwa.ultrasonic.androidapp.activity.SubsonicTabActivity;
-import com.thejoshwa.ultrasonic.androidapp.domain.Artist;
-import com.thejoshwa.ultrasonic.androidapp.domain.MusicDirectory;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -40,6 +30,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
+
+import com.thejoshwa.ultrasonic.androidapp.activity.SubsonicTabActivity;
+import com.thejoshwa.ultrasonic.androidapp.domain.Artist;
+import com.thejoshwa.ultrasonic.androidapp.domain.MusicDirectory;
 
 /**
  * @author Sindre Mehus
@@ -210,9 +210,17 @@ public class FileUtil
 	public static Bitmap getAlbumArtBitmap(Context context, MusicDirectory.Entry entry, int size, boolean highQuality)
 	{
 		if (entry == null) return null;
+		
+		Log.i(TAG, "CoverArt:" + entry.getCoverArt());
+		Log.i(TAG, "Path:" + entry.getPath());
+		Log.i(TAG, "Parent:" + entry.getParent());
 
-		File albumArtFile = getAlbumArtFile(context, entry);
-
+		File albumArtFile = null;
+		if (entry.getPath() == null || !entry.getPath().startsWith("spotify:")) {
+			// we should never have files on the filesystem with spotify
+			albumArtFile = getAlbumArtFile(context, entry);	
+		}
+		
 		SubsonicTabActivity subsonicTabActivity = SubsonicTabActivity.getInstance();
 		Bitmap bitmap = null;
 		ImageLoader imageLoader = null;
@@ -229,6 +237,7 @@ public class FileUtil
 
 		if (bitmap != null)
 		{
+			Log.i(TAG, "Returning not null bitmap.");
 			return bitmap.copy(bitmap.getConfig(), false);
 		}
 

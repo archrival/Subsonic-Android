@@ -14,13 +14,15 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file:///production/pulltorefresh" />
+    <output-test url="file:///test/pulltorefresh" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/pulltorefresh">
       <sourceFolder url="file://$MODULE_DIR$/pulltorefresh/library/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pulltorefresh/library/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

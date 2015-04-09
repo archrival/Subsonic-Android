@@ -105,6 +105,7 @@ public final class Constants
 	public static final String PREFERENCES_KEY_DEFAULT_SONGS = "defaultSongs";
 	public static final String PREFERENCES_KEY_DEFAULT_ARTISTS = "defaultArtists";
 	public static final String PREFERENCES_KEY_SHOW_NOW_PLAYING = "showNowPlaying";
+	public static final String PREFERENCES_KEY_SHOW_JUKEBOX = "showJukebox";
 	public static final String PREFERENCES_KEY_GAPLESS_PLAYBACK = "gaplessPlayback";
 	public static final String PREFERENCES_KEY_PLAYBACK_CONTROL_SETTINGS = "playbackControlSettings";
 	public static final String PREFERENCES_KEY_CLEAR_SEARCH_HISTORY = "clearSearchHistory";

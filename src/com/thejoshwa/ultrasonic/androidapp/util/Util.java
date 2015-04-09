@@ -264,6 +264,12 @@ public class Util extends DownloadActivity
 		return preferences.getBoolean(Constants.PREFERENCES_KEY_JUKEBOX_BY_DEFAULT + instance, false);
 	}
 
+	public static boolean isShowJukeboxEnabled(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_JUKEBOX, true);
+	}
+
 	public static void setServerRestVersion(Context context, Version version)
 	{
 		SERVER_REST_VERSIONS.put(getActiveServer(context), version);
@@ -336,7 +342,7 @@ public class Util extends DownloadActivity
 	public static String getTheme(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
-		return preferences.getString(Constants.PREFERENCES_KEY_THEME, "dark");
+		return preferences.getString(Constants.PREFERENCES_KEY_THEME, "materiallight");
 	}
 
 	public static int getMaxBitRate(Context context)
@@ -371,6 +377,12 @@ public class Util extends DownloadActivity
 
 	public static String getRestUrl(Context context, String method)
 	{
+		boolean isJukeboxEnabled = DownloadServiceImpl.getInstance() != null && DownloadServiceImpl.getInstance().isJukeboxEnabled();
+		return getRestUrl(context, method, isJukeboxEnabled);
+	}
+
+	public static String getRestUrl(Context context, String method, Boolean isJukeboxEnabled)
+	{
 		StringBuilder builder = new StringBuilder(8192);
 
 		SharedPreferences preferences = getPreferences(context);
@@ -393,7 +405,12 @@ public class Util extends DownloadActivity
 		builder.append("?u=").append(username);
 		builder.append("&p=").append(password);
 		builder.append("&v=").append(Constants.REST_PROTOCOL_VERSION);
-		builder.append("&c=").append(Constants.REST_CLIENT_ID);
+
+		String clientId = Constants.REST_CLIENT_ID;
+		if (Boolean.TRUE.equals(isJukeboxEnabled)) {
+		    clientId = clientId + "-jukebox";
+		}
+		builder.append("&c=").append(clientId);
 
 		return builder.toString();
 	}
